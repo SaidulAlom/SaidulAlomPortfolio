@@ -10,15 +10,15 @@ interface HeaderProps {
 
 export default function Header({ onOpenMenu }: HeaderProps) {
   return (
-    <header className="fixed top-0 left-0 right-0 p-8 md:p-12 flex justify-between items-center z-[100] pointer-events-none">
+    <header className="fixed top-0 left-0 right-0 p-6 md:p-12 flex justify-between items-center z-[100] pointer-events-none gap-4">
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
-        className="pointer-events-auto cursor-pointer"
+        className="pointer-events-auto cursor-pointer shrink-0"
       >
         <Link href="/">
-          <img src="/SaidulAlomLogo.png" alt="Saidul Alom Logo" className="h-8 md:h-10 w-auto object-contain hover:scale-105 transition-transform duration-300" />
+          <img src="/SaidulAlomLogo.png" alt="Saidul Alom Logo" className="h-6 sm:h-8 md:h-10 w-auto object-contain hover:scale-105 transition-transform duration-300" />
         </Link>
       </motion.div>
       

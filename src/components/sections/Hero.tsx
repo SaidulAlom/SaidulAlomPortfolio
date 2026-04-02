@@ -2,6 +2,7 @@
 
 import { motion, MotionValue } from "motion/react";
 import { MoreHorizontal } from "lucide-react";
+import ParticleBackground from "../ParticleBackground";
 
 interface HeroProps {
   styles: {
@@ -21,6 +22,7 @@ export default function Hero({ styles, currentYear }: HeroProps) {
     >
       {/* Background Image Container */}
       <div className="relative md:absolute md:inset-0 z-0 bg-neutral-900 h-[65vh] md:h-full shrink-0">
+        <ParticleBackground />
         <img 
           src="https://lh3.googleusercontent.com/d/1zl9tr3oqn7zPfyddQULvcKVfL1A9UQKq" 
           alt="Saidul Alom Portrait" 

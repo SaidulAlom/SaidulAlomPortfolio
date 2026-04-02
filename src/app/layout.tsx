@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
+import { Space_Grotesk } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import ScrollUpButton from "../components/ScrollUpButton";
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://saidulalom.com'),
@@ -47,8 +54,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body
+        className={`${spaceGrotesk.variable} antialiased selection:bg-[#a3ff33] selection:text-black`}
+      >
         {children}
+        <Analytics />
         <ScrollUpButton />
       </body>
     </html>

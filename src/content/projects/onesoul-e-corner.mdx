@@ -1,0 +1,25 @@
+## Overview
+
+**OneSoul e-Corner** is a robust, full-stack E-Commerce platform built to deliver a seamless shopping experience. It features a brutalist design language combined with modern frontend architectures designed to maximize user engagement and retention.
+
+### The Challenge
+The primary challenge was ensuring that the user's shopping cart persisted flawlessly across sessions while maintaining lightning-fast page loads and zero layout shifts.
+
+### The Solution
+By deeply integrating Context APIs coupled with intelligent `localStorage` caching, we managed to completely eliminate cart loading times. Stripe API was implemented securely on the backend to handle payments without storing sensitive data locally.
+
+## Key Features
+- 🛒 **Persistent Shopping Cart**: Real-time persistent state management.
+- 💳 **Stripe Integration**: Bank-grade security checkout logic.
+- 📱 **Responsive Design**: Tailored layout scaling seamlessly to mobile interfaces.
+
+### Code Sample Architecture
+```js
+// The local storage hydration hook
+useEffect(() => {
+  const localCart = localStorage.getItem('cart');
+  if (localCart) {
+    dispatch({ type: 'HYDRATE_CART', payload: JSON.parse(localCart) });
+  }
+}, []);
+```

@@ -53,15 +53,15 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
           animate={{ x: 0 }}
           exit={{ x: "100%" }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[60] bg-[#a3ff33] text-black flex flex-col p-8 md:p-12"
+          className="fixed inset-0 z-[200] bg-[#a3ff33] text-black flex flex-col p-6 md:p-12"
         >
-          <div className="flex justify-between items-center mb-20">
-            <span className="text-sm font-bold tracking-widest uppercase">NAVIGATION</span>
+          <div className="flex justify-between items-center mb-10 md:mb-20">
+            <span className="text-xs md:text-sm font-bold tracking-widest uppercase">NAVIGATION</span>
             <button 
               onClick={onClose}
-              className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center hover:scale-110 transition-transform duration-300"
+              className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black text-white flex items-center justify-center hover:scale-110 transition-transform duration-300 shrink-0"
             >
-              <X size={24} />
+              <X size={20} className="md:w-6 md:h-6" />
             </button>
           </div>
 
@@ -74,7 +74,7 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 + i * 0.1, duration: 0.5 }}
                 onClick={(e) => handleNavClick(e, link.index)}
-                className={`text-[15vw] md:text-[8vw] font-bold leading-none tracking-tighter hover:italic transition-all duration-300 cursor-pointer ${
+                className={`text-[12vw] md:text-[7vw] lg:text-[5vw] xl:text-[4vw] font-bold leading-none tracking-tighter hover:italic transition-all duration-300 cursor-pointer ${
                   i === activeIndex ? "text-black" : "text-black/30 hover:text-black/60"
                 }`}
               >

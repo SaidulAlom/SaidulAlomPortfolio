@@ -154,10 +154,11 @@ export default function Projects({ styles }: ProjectsProps) {
                   className="border border-white/10 rounded-2xl bg-black/50 group relative overflow-hidden flex flex-col min-h-[350px]"
                 >
                   {/* Image Section */}
-                  <div className="h-48 w-full overflow-hidden relative border-b border-white/10 shrink-0">
+                  <div className="h-48 w-full overflow-hidden relative border-b border-white/10 shrink-0 bg-neutral-900/50">
                     <img 
                       src={p.image} 
                       alt={p.title} 
+                      loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                     />
                     <div className="absolute inset-0 bg-[#a3ff33]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

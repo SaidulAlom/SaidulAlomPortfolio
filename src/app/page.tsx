@@ -3,7 +3,6 @@
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 import { useState, useEffect, useRef } from "react";
 
-import CustomCursor from "../components/CustomCursor";
 import Loader from "../components/Loader";
 import Header from "../components/Header";
 import MenuOverlay from "../components/MenuOverlay";
@@ -78,9 +77,7 @@ export default function App() {
   };
 
   return (
-    <div ref={containerRef} className="bg-black text-white font-sans selection:bg-[#a3ff33] selection:text-black relative cursor-none">
-      <CustomCursor />
-
+    <div ref={containerRef} className="bg-black text-white font-sans selection:bg-[#a3ff33] selection:text-black relative">
       <AnimatePresence mode="wait">
         {loading ? (
           <Loader key="loader" progress={progress} />
