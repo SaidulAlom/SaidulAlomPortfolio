@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, MotionValue } from "motion/react";
-import { Send } from "lucide-react";
+import { Send, MessageCircle } from "lucide-react";
 import { useForm, ValidationError } from "@formspree/react";
 
 interface ContactProps {
@@ -19,28 +19,34 @@ export default function Contact({ styles }: ContactProps) {
     <motion.section
       id="contact"
       style={{ y: styles.y, scale: styles.scale, opacity: styles.opacity }}
-      className="h-screen sticky top-0 flex flex-col md:justify-center p-4 sm:p-6 md:p-24 bg-black z-60 overflow-hidden"
+      className="h-screen sticky top-0 flex flex-col justify-center p-4 sm:p-6 md:p-24 pt-24 md:pt-28 bg-black z-60 overflow-hidden"
     >
-      <div className="max-w-6xl w-full flex flex-col h-[90vh] md:h-auto pt-24 md:pt-0">
+      <div className="max-w-6xl w-full flex flex-col">
         <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6 md:mb-12 shrink-0">
           <h2 className="text-4xl md:text-7xl font-bold tracking-tighter uppercase whitespace-nowrap mt-4 md:mt-0">Contact</h2>
           <div className="h-[2px] w-full md:flex-1 bg-[#a3ff33]/20 md:min-w-[50px]" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24 overflow-y-auto no-scrollbar pb-32 pr-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24 overflow-y-auto no-scrollbar pb-20 pr-2 max-h-[calc(100vh-220px)]">
 
           {/* Left Side: Text and Direct Info */}
           <div className="flex flex-col justify-center">
+            {/* Availability Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#a3ff33]/30 bg-[#a3ff33]/10 mb-6">
+              <span className="w-2 h-2 rounded-full bg-[#a3ff33] animate-pulse" />
+              <span className="text-[#a3ff33] text-xs font-bold uppercase tracking-widest">Available for Freelance & Remote Work</span>
+            </div>
+
             <h3 className="text-3xl md:text-6xl font-bold leading-tight mb-4 md:mb-8">
               Let's build something <br className="hidden lg:block" />
               <span className="text-[#a3ff33]">extraordinary</span> together.
             </h3>
 
-            <p className="text-gray-400 mb-6 md:mb-12 max-w-md leading-relaxed text-sm md:text-base">
+            <p className="text-gray-400 mb-6 md:mb-10 max-w-md leading-relaxed text-sm md:text-base">
               Whether you have a question, a project idea, or just want to say hi, I will try my best to get back to you!
             </p>
 
-            <div className="space-y-6 mb-8 md:mb-0">
+            <div className="space-y-6 mb-8">
               <div>
                 <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#a3ff33] mb-2">Email</p>
                 <div className="overflow-x-hidden">
@@ -60,6 +66,19 @@ export default function Contact({ styles }: ContactProps) {
                 </div>
               </div>
             </div>
+
+            {/* WhatsApp CTA */}
+            <motion.a
+              href="https://wa.me/918486028737?text=Hi%20Saidul%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project."
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="btn-glow inline-flex items-center gap-3 px-6 py-4 bg-[#25D366] text-black font-bold rounded-2xl hover:bg-[#20bd5a] transition-colors text-sm uppercase tracking-widest"
+            >
+              <MessageCircle size={20} />
+              Chat on WhatsApp
+            </motion.a>
           </div>
 
           {/* Right Side: Interactive Built-in Contact Form */}
@@ -117,7 +136,7 @@ export default function Contact({ styles }: ContactProps) {
               <button
                 type="submit"
                 disabled={state.submitting || state.succeeded}
-                className="mt-2 w-full bg-[#a3ff33] text-black py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-white transition-colors flex items-center justify-center gap-3 disabled:opacity-70 disabled:hover:bg-[#a3ff33] group"
+                className="btn-glow mt-2 w-full bg-[#a3ff33] text-black py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-white transition-colors flex items-center justify-center gap-3 disabled:opacity-70 disabled:hover:bg-[#a3ff33] group"
               >
                 {!state.submitting && !state.succeeded && (
                   <>

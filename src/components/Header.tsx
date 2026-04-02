@@ -18,7 +18,7 @@ export default function Header({ onOpenMenu }: HeaderProps) {
         className="pointer-events-auto cursor-pointer shrink-0"
       >
         <Link href="/">
-          <img src="/SaidulAlomLogo.png" alt="Saidul Alom Logo" className="h-6 sm:h-8 md:h-10 w-auto object-contain hover:scale-105 transition-transform duration-300" />
+          <img src="/SaidulAlomLogo.png" alt="Saidul Alom Logo" className="h-10 sm:h-12 md:h-16 w-auto object-contain hover:scale-105 transition-transform duration-300" />
         </Link>
       </motion.div>
       

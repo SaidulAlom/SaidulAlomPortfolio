@@ -36,7 +36,7 @@ export default function About({ styles }: AboutProps) {
               }}
               className="text-2xl md:text-5xl font-bold leading-tight tracking-tight text-white"
             >
-              I’m a passionate <span className="text-[#a3ff33]">Full Stack Developer</span> focused on building fast, scalable, and user-friendly web applications.
+              I architect and build fast, scalable, and <span className="text-[#a3ff33]">user-focused web applications</span> from the ground up. Utilizing React and Next.js, I engineer full-stack solutions designed for real-world traffic.
             </motion.p>
             <motion.p
               variants={{
@@ -45,7 +45,7 @@ export default function About({ styles }: AboutProps) {
               }}
               className="text-lg md:text-2xl text-gray-300 leading-relaxed font-medium"
             >
-              With hands-on experience in modern technologies like React, Next.js, and Node.js, I build end-to-end applications that deliver real value.
+              My focus is squarely on absolute performance, pixel-perfect frontend execution, and solving complex business problems. Whether it's designing secure RESTful APIs in Node.js or crafting immersive WebGL interfaces, I deliver digital products that scale rapidly, convert users natively, and drive tangible outcome.
             </motion.p>
           </div>
           <motion.div

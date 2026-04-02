@@ -1,0 +1,73 @@
+# React Performance Patterns I Use on Every Project
+
+Performance isn't something you bolt on at the end. These are the patterns I apply from the start on every React project — they're low-effort, high-impact, and have saved me from painful refactors.
+
+## 1. Never Define Objects or Arrays Inside JSX
+
+This is the most common performance mistake I see in codebases:
+
+```jsx
+// ❌ Creates a new object on every render
+<Component style={{ color: "red", fontSize: 14 }} />
+
+// ✅ Define it outside the component
+const labelStyle = { color: "red", fontSize: 14 };
+<Component style={labelStyle} />
+```
+
+Every render creates a new reference, which breaks `React.memo` and causes unnecessary child re-renders.
+
+## 2. Use `useCallback` for Event Handlers Passed as Props
+
+```jsx
+// ❌ New function reference every render
+<Button onClick={() => handleDelete(id)} />
+
+// ✅ Stable reference
+const handleDeleteItem = useCallback(() => handleDelete(id), [id]);
+<Button onClick={handleDeleteItem} />
+```
+
+This matters most when the child component is wrapped in `React.memo`.
+
+## 3. Lazy Load Everything Below the Fold
+
+```jsx
+import dynamic from "next/dynamic";
+
+const HeavyChart = dynamic(() => import("./HeavyChart"), {
+  loading: () => <Skeleton />,
+  ssr: false,
+});
+```
+
+In Next.js, `dynamic()` is your best friend. I use it for charts, modals, rich text editors — anything that isn't visible on initial load.
+
+## 4. Virtualize Long Lists
+
+If you're rendering more than ~50 items in a list, you're probably hurting performance. Use `@tanstack/react-virtual` or `react-window` to only render what's visible in the viewport.
+
+The difference on a list of 500 items is night and day — from seconds of blocking to instant scroll.
+
+## 5. Avoid `useEffect` for Derived State
+
+```jsx
+// ❌ Unnecessary effect + extra render
+const [fullName, setFullName] = useState("");
+useEffect(() => {
+  setFullName(`${firstName} ${lastName}`);
+}, [firstName, lastName]);
+
+// ✅ Just compute it
+const fullName = `${firstName} ${lastName}`;
+```
+
+Derived values should be computed during render, not stored in state. Every `useEffect` that sets state causes an extra render cycle.
+
+## 6. Profile Before You Optimize
+
+The React DevTools Profiler is underused. Before spending time on optimizations, record a session and look at what's actually slow. I've been surprised many times — the bottleneck is rarely where I expected it.
+
+---
+
+These patterns won't make a slow architecture fast, but they'll keep a good architecture from becoming slow. Start with them, and you'll rarely need to do a performance audit later.

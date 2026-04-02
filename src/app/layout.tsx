@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import ScrollUpButton from "../components/ScrollUpButton";
+import CursorGlow from "../components/CursorGlow";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -56,6 +57,7 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} antialiased selection:bg-[#a3ff33] selection:text-black`}
       >
+        <CursorGlow />
         {children}
         <ScrollUpButton />
       </body>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import fs from 'fs';
 import path from 'path';
+import PageTransition from '../../components/PageTransition';
 
 export const metadata: Metadata = {
   title: 'Engineering Blog | Saidul Alom',
@@ -18,6 +19,7 @@ export default function Blog() {
   }
 
   return (
+    <PageTransition>
     <div className="min-h-screen bg-black text-white p-8 md:p-24 selection:bg-[#a3ff33] selection:text-black">
       <Link href="/" className="inline-flex items-center gap-2 text-[#a3ff33] hover:underline mb-12 font-bold tracking-widest uppercase">
         <ArrowLeft size={16} /> Back to Portfolio
@@ -44,5 +46,6 @@ export default function Blog() {
       
       <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.04] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
     </div>
+    </PageTransition>
   );
 }

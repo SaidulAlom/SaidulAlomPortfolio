@@ -10,3 +10,26 @@ body {
   background-color: #000000;
   color: #ffffff;
 }
+
+.btn-glow {
+  position: relative;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 0 20px 4px rgba(163, 255, 51, 0.5);
+}
+.btn-glow:hover::after {
+  opacity: 1;
+}
+.btn-glow:hover {
+  transform: translateY(-2px);
+}
+.btn-glow:active {
+  transform: translateY(0px);
+}

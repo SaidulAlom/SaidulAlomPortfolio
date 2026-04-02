@@ -2,6 +2,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
+import PageTransition from '../../../components/PageTransition';
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -14,6 +15,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   const mdxSource = fs.readFileSync(filePath, 'utf8');
   
   return (
+    <PageTransition>
     <div className="min-h-screen bg-black text-white p-8 md:p-24 selection:bg-[#a3ff33] selection:text-black">
       <Link href="/blog" className="text-[#a3ff33] font-bold uppercase tracking-widest flex gap-2 items-center mb-16 hover:underline">
         ← Back to Blog
@@ -24,5 +26,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       
       <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.04] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
     </div>
+    </PageTransition>
   );
 }

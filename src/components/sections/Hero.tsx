@@ -2,7 +2,9 @@
 
 import { motion, MotionValue } from "motion/react";
 import { MoreHorizontal } from "lucide-react";
+import { useState } from "react";
 import ParticleBackground from "../ParticleBackground";
+import ResumeModal from "../ResumeModal";
 
 interface HeroProps {
   styles: {
@@ -14,6 +16,7 @@ interface HeroProps {
 }
 
 export default function Hero({ styles, currentYear }: HeroProps) {
+  const [showResume, setShowResume] = useState(false);
   return (
     <motion.section 
       id="home" 
@@ -48,7 +51,7 @@ export default function Hero({ styles, currentYear }: HeroProps) {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             className="flex items-center gap-2 mb-4"
           >
-            <span className="text-xl md:text-2xl font-medium drop-shadow-md">Hey👋, I'm a Full Stack Developer</span>
+            <span className="text-xl md:text-2xl font-medium drop-shadow-md">Hey👋, I build high-performance web apps that scale, convert, and make businesses money.</span>
           </motion.div>
 
           <div className="relative">
@@ -62,10 +65,42 @@ export default function Hero({ styles, currentYear }: HeroProps) {
             </motion.h1>
             
             <motion.div 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.8 }}
+              className="flex flex-col sm:flex-row gap-4 mt-8"
+            >
+              <button 
+                onClick={() => {
+                  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                  window.scrollTo({ top: (2 / 6) * maxScroll, behavior: "smooth" });
+                }}
+                className="btn-glow px-8 py-3 bg-[#a3ff33] text-black font-bold uppercase tracking-widest text-xs rounded-full hover:bg-white transition-all shadow-[0_0_20px_rgba(163,255,51,0.3)] w-full sm:w-auto"
+              >
+                View Projects
+              </button>
+              <button 
+                onClick={() => {
+                  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                  window.scrollTo({ top: (4 / 6) * maxScroll, behavior: "smooth" });
+                }}
+                className="btn-glow px-8 py-3 bg-transparent border border-[#a3ff33] text-[#a3ff33] font-bold uppercase tracking-widest text-xs rounded-full hover:bg-[#a3ff33] hover:text-black transition-all w-full sm:w-auto"
+              >
+                Hire Me
+              </button>
+              <button
+                onClick={() => setShowResume(true)}
+                className="btn-glow px-8 py-3 bg-transparent border border-white/30 text-white font-bold uppercase tracking-widest text-xs rounded-full hover:border-white transition-all w-full sm:w-auto"
+              >
+                Preview Resume
+              </button>
+            </motion.div>
+
+            <motion.div 
               initial={{ width: 0 }}
               animate={{ width: "100%" }}
               transition={{ duration: 1.5, delay: 1, ease: "easeInOut" }}
-              className="h-[1px] bg-[#a3ff33]/30 mt-4"
+              className="h-[1px] bg-[#a3ff33]/30 mt-8"
             />
           </div>
 
@@ -81,6 +116,8 @@ export default function Hero({ styles, currentYear }: HeroProps) {
           </motion.div>
         </div>
       </main>
+
+      {showResume && <ResumeModal onClose={() => setShowResume(false)} />}
 
       {/* Scroll Indicator */}
       <motion.div 

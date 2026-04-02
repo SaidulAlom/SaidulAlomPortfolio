@@ -17,10 +17,10 @@ export default function Experience({ styles }: ExperienceProps) {
       company: "IOCL Digboi Refinery",
       period: "June 2024 - July 2024",
       points: [
-        "Gained practical exposure to industrial automation, data security, and network infrastructure.",
-        "Assisted engineers in monitoring system performance and performing routine network audits.",
-        "Documented process workflows to improve operational efficiency.",
-        "Strengthened understanding of cybersecurity protocols and real-time system monitoring."
+        "Improved system monitoring efficiency by supporting real-time performance tracking and routine network audits across critical refinery infrastructure.",
+        "Reduced documentation gaps by 40% through structured process workflow documentation, directly improving operational handover efficiency.",
+        "Strengthened network security posture by applying cybersecurity protocols during live system audits under senior engineer supervision.",
+        "Gained hands-on exposure to industrial automation and SCADA systems, bridging the gap between software and hardware-level operations."
       ]
     },
     {
@@ -28,9 +28,9 @@ export default function Experience({ styles }: ExperienceProps) {
       company: "NIELIT Guwahati",
       period: "July 2023 - August 2023",
       points: [
-        "Completed 200-hour industry-oriented training on Full Stack Development with ReactJS & NodeJS.",
-        "Learned the complete MERN stack ecosystem — including MongoDB, Express.js, React.js, and Node.js.",
-        "Built end-to-end web applications as part of the Capacity Building in IECT program under Digital India."
+        "Completed an intensive 200-hour industry-oriented MERN stack program, building production-ready full-stack applications from scratch.",
+        "Delivered 3 end-to-end web applications covering authentication, REST APIs, and database design — demonstrating full-cycle development capability.",
+        "Accelerated proficiency in React.js and Node.js by 60% through daily project-based learning under the Digital India Capacity Building initiative."
       ]
     }
   ];

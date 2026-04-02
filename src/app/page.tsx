@@ -11,6 +11,7 @@ import About from "../components/sections/About";
 import Skills from "../components/sections/Skills";
 import Projects from "../components/sections/Projects";
 import Experience from "../components/sections/Experience";
+import Testimonials from "../components/sections/Testimonials";
 import Contact from "../components/sections/Contact";
 
 export default function App() {
@@ -41,39 +42,45 @@ export default function App() {
 
   // Animation values for stacking effect
   const homeStyles = {
-    scale: useTransform(scrollYProgress, [1 / 6, 1 / 6 + 0.1], [1, 0.9]),
-    opacity: useTransform(scrollYProgress, [1 / 6, 1 / 6 + 0.1], [1, 0]),
+    scale: useTransform(scrollYProgress, [1 / 7, 1 / 7 + 0.1], [1, 0.9]),
+    opacity: useTransform(scrollYProgress, [1 / 7, 1 / 7 + 0.1], [1, 0]),
     y: useTransform(scrollYProgress, [0, 1], ["0vh", "0vh"])
   };
 
   const aboutStyles = {
-    scale: useTransform(scrollYProgress, [2 / 6, 2 / 6 + 0.1], [1, 0.9]),
-    opacity: useTransform(scrollYProgress, [2 / 6, 2 / 6 + 0.1], [1, 0]),
-    y: useTransform(scrollYProgress, [1 / 6 - 0.1, 1 / 6], ["100vh", "0vh"])
+    scale: useTransform(scrollYProgress, [2 / 7, 2 / 7 + 0.1], [1, 0.9]),
+    opacity: useTransform(scrollYProgress, [2 / 7, 2 / 7 + 0.1], [1, 0]),
+    y: useTransform(scrollYProgress, [1 / 7 - 0.1, 1 / 7], ["100vh", "0vh"])
   };
 
   const skillsStyles = {
-    scale: useTransform(scrollYProgress, [3 / 6, 3 / 6 + 0.1], [1, 0.9]),
-    opacity: useTransform(scrollYProgress, [3 / 6, 3 / 6 + 0.1], [1, 0]),
-    y: useTransform(scrollYProgress, [2 / 6 - 0.1, 2 / 6], ["100vh", "0vh"])
+    scale: useTransform(scrollYProgress, [3 / 7, 3 / 7 + 0.1], [1, 0.9]),
+    opacity: useTransform(scrollYProgress, [3 / 7, 3 / 7 + 0.1], [1, 0]),
+    y: useTransform(scrollYProgress, [2 / 7 - 0.1, 2 / 7], ["100vh", "0vh"])
   };
 
   const projectsStyles = {
-    scale: useTransform(scrollYProgress, [4 / 6, 4 / 6 + 0.1], [1, 0.9]),
-    opacity: useTransform(scrollYProgress, [4 / 6, 4 / 6 + 0.1], [1, 0]),
-    y: useTransform(scrollYProgress, [3 / 6 - 0.1, 3 / 6], ["100vh", "0vh"])
+    scale: useTransform(scrollYProgress, [4 / 7, 4 / 7 + 0.1], [1, 0.9]),
+    opacity: useTransform(scrollYProgress, [4 / 7, 4 / 7 + 0.1], [1, 0]),
+    y: useTransform(scrollYProgress, [3 / 7 - 0.1, 3 / 7], ["100vh", "0vh"])
   };
 
   const experienceStyles = {
-    scale: useTransform(scrollYProgress, [5 / 6, 5 / 6 + 0.1], [1, 0.9]),
-    opacity: useTransform(scrollYProgress, [5 / 6, 5 / 6 + 0.1], [1, 0]),
-    y: useTransform(scrollYProgress, [4 / 6 - 0.1, 4 / 6], ["100vh", "0vh"])
+    scale: useTransform(scrollYProgress, [5 / 7, 5 / 7 + 0.1], [1, 0.9]),
+    opacity: useTransform(scrollYProgress, [5 / 7, 5 / 7 + 0.1], [1, 0]),
+    y: useTransform(scrollYProgress, [4 / 7 - 0.1, 4 / 7], ["100vh", "0vh"])
+  };
+
+  const testimonialsStyles = {
+    scale: useTransform(scrollYProgress, [6 / 7, 6 / 7 + 0.1], [1, 0.9]),
+    opacity: useTransform(scrollYProgress, [6 / 7, 6 / 7 + 0.1], [1, 0]),
+    y: useTransform(scrollYProgress, [5 / 7 - 0.1, 5 / 7], ["100vh", "0vh"])
   };
 
   const contactStyles = {
     scale: useTransform(scrollYProgress, [0.99, 1], [1, 1]),
     opacity: useTransform(scrollYProgress, [0.99, 1], [1, 1]),
-    y: useTransform(scrollYProgress, [5 / 6 - 0.1, 5 / 6], ["100vh", "0vh"])
+    y: useTransform(scrollYProgress, [6 / 7 - 0.1, 6 / 7], ["100vh", "0vh"])
   };
 
   return (
@@ -95,6 +102,7 @@ export default function App() {
             <Skills styles={skillsStyles} />
             <Projects styles={projectsStyles} />
             <Experience styles={experienceStyles} />
+            <Testimonials styles={testimonialsStyles} />
             <Contact styles={contactStyles} />
 
             {/* Spacer to allow scrolling through all sections */}
