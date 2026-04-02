@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import ScrollUpButton from "../components/ScrollUpButton";
 
@@ -58,7 +57,6 @@ export default function RootLayout({
         className={`${spaceGrotesk.variable} antialiased selection:bg-[#a3ff33] selection:text-black`}
       >
         {children}
-        <Analytics />
         <ScrollUpButton />
       </body>
     </html>
