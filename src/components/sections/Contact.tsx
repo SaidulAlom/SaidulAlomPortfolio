@@ -19,18 +19,18 @@ export default function Contact({ styles }: ContactProps) {
     <motion.section
       id="contact"
       style={{ y: styles.y, scale: styles.scale, opacity: styles.opacity }}
-      className="h-screen sticky top-0 flex flex-col justify-center p-4 sm:p-6 md:p-24 pt-24 md:pt-28 bg-black z-60 overflow-hidden"
+      className="h-screen sticky top-0 flex flex-col p-4 sm:p-6 md:p-24 pt-20 md:pt-28 bg-black z-60 overflow-hidden"
     >
-      <div className="max-w-6xl w-full flex flex-col">
-        <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6 md:mb-12 shrink-0">
-          <h2 className="text-4xl md:text-7xl font-bold tracking-tighter uppercase whitespace-nowrap mt-4 md:mt-0">Contact</h2>
-          <div className="h-[2px] w-full md:flex-1 bg-[#a3ff33]/20 md:min-w-[50px]" />
+      <div className="max-w-6xl w-full flex flex-col flex-1 min-h-0">
+        <div className="flex items-center gap-4 mb-4 md:mb-10 shrink-0">
+          <h2 className="text-3xl md:text-7xl font-bold tracking-tighter uppercase">Contact</h2>
+          <div className="h-[2px] flex-1 bg-[#a3ff33]/20 min-w-[30px]" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24 overflow-y-auto no-scrollbar pb-20 pr-2 max-h-[calc(100vh-220px)]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-24 flex-1 min-h-0 overflow-y-auto pb-20 pr-1 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full">
 
-          {/* Left Side: Text and Direct Info */}
-          <div className="flex flex-col justify-center">
+          {/* Left Side — hidden on mobile */}
+          <div className="hidden lg:flex flex-col justify-center">
             {/* Availability Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#a3ff33]/30 bg-[#a3ff33]/10 mb-6">
               <span className="w-2 h-2 rounded-full bg-[#a3ff33] animate-pulse" />
@@ -81,15 +81,28 @@ export default function Contact({ styles }: ContactProps) {
             </motion.a>
           </div>
 
-          {/* Right Side: Interactive Built-in Contact Form */}
+          {/* Mobile-only quick info */}
+          <div className="lg:hidden flex items-center justify-between gap-4 shrink-0 mb-1">
+            <a href="mailto:saidulalom525@gmail.com" className="text-xs text-[#a3ff33] font-bold truncate">saidulalom525@gmail.com</a>
+            <a
+              href="https://wa.me/918486028737"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#25D366] text-black text-[10px] font-bold rounded-full shrink-0"
+            >
+              <MessageCircle size={12} /> WhatsApp
+            </a>
+          </div>
+
+          {/* Right Side: Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="p-8 md:p-12 border border-white/10 rounded-3xl bg-neutral-900/50 backdrop-blur-xl relative overflow-hidden"
+            className="p-5 md:p-12 border border-white/10 rounded-3xl bg-neutral-900/50 backdrop-blur-xl relative overflow-hidden"
           >
-            <form onSubmit={handleSubmit} className="flex flex-col gap-8 relative z-10">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5 md:gap-8 relative z-10">
               {/* Name Field */}
               <div className="flex flex-col gap-2">
                 <label htmlFor="name" className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#a3ff33]">Your Name</label>
