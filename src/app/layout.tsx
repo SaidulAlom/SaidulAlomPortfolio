@@ -45,6 +45,9 @@ export const metadata: Metadata = {
   icons: {
     icon: "/SaidulAlomLogo.png",
   },
+  verification: {
+    google: "46edadbbf7060503",
+  },
 };
 
 export default function RootLayout({
