@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import ScrollUpButton from "../components/ScrollUpButton";
@@ -9,8 +9,27 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://saidulalom.com'),
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   title: {
     default: "Saidul Alom | Full Stack Developer",
     template: "%s | Saidul Alom"
@@ -27,8 +46,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/SaidulAlomLogo.png',
-        width: 800,
-        height: 600,
+        width: 1200,
+        height: 630,
         alt: 'Saidul Alom Logo'
       }
     ],
@@ -39,6 +58,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Saidul Alom | Full Stack Developer',
     description: "Portfolio of Saidul Alom, a Full Stack Developer.",
+    site: '@S_Alom_83',
     creator: '@S_Alom_83',
     images: ['/SaidulAlomLogo.png'],
   },
