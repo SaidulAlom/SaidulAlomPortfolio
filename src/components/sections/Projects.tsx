@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { motion, MotionValue, AnimatePresence, useMotionValue, useSpring, useTransform } from "motion/react";
 import { ExternalLink, Github, BookOpen } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface ProjectsProps {
   styles: {
@@ -54,11 +55,13 @@ function ProjectCard({ p }: { p: Project }) {
       onMouseLeave={handleMouseLeave}
       className="group relative flex flex-col bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-[#a3ff33]/40 transition-colors duration-300 will-change-transform"
     >
-      <Link href={`/project/${p.slug}`} className="block overflow-hidden">
-        <img
+      <Link href={`/project/${p.slug}`} className="block overflow-hidden relative h-48 w-full">
+        <Image
           src={p.image}
           alt={p.title}
-          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
         />
       </Link>
       <div className="flex flex-col flex-1 p-5 gap-3">
@@ -89,9 +92,22 @@ function ProjectCard({ p }: { p: Project }) {
 export default function Projects({ styles }: ProjectsProps) {
   const [activeFilter, setActiveFilter] = useState("All");
 
-  const categories = ["All", "Full Stack", "Frontend", "E-Commerce"];
+  const categories = ["All", "Full Stack", "Frontend", "E-Commerce", "Health & Fitness"];
 
   const projectsData = [
+    {
+      title: "Modern Fitness Tracker",
+      slug: "modern-fitness-tracker",
+      category: "Health & Fitness",
+      tech: "Next.js · TypeScript · CSS",
+      description: "Built a full-stack fitness tracking app with workout logging, streak system, nutrition tracking, body metrics, PR detection, membership plans, and interactive progress charts.",
+      problem: "Fitness enthusiasts lacked a single, beautifully designed app that combined workout tracking, nutrition logging, and progress visualization without overwhelming complexity.",
+      solution: "Architected a multi-page Next.js app with isolated feature domains, local data persistence, real streak logic, and a premium glassmorphism UI that keeps users motivated.",
+      result: "A polished, fully-featured fitness platform deployed on Netlify with sub-second load times and an immersive user experience that drives daily engagement.",
+      live: "https://modernfitnesstracker.netlify.app/",
+      github: "https://github.com/SaidulAlom/Fitness_Tracker",
+      image: "/projects/fitness-tracker.png"
+    },
     {
       title: "OneSoul e-Corner",
       slug: "onesoul-e-corner",

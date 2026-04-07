@@ -3,6 +3,7 @@
 import { motion, MotionValue } from "motion/react";
 import { MoreHorizontal } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 import ParticleBackground from "../ParticleBackground";
 import ResumeModal from "../ResumeModal";
 
@@ -26,10 +27,13 @@ export default function Hero({ styles, currentYear }: HeroProps) {
       {/* Background Image Container */}
       <div className="relative md:absolute md:inset-0 z-0 bg-neutral-900 h-[55vh] md:h-full shrink-0">
         <ParticleBackground />
-        <img 
+        <Image 
           src="https://lh3.googleusercontent.com/d/1zl9tr3oqn7zPfyddQULvcKVfL1A9UQKq" 
           alt="Saidul Alom Portrait" 
-          className="w-full h-full object-cover opacity-90 transition-opacity duration-1000"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-90 transition-opacity duration-1000"
           style={{ objectPosition: 'center 35%' }}
           referrerPolicy="no-referrer"
         />

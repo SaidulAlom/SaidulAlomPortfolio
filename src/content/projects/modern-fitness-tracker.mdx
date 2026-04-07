@@ -1,0 +1,33 @@
+## Overview
+
+**FORGEFIT — Modern Fitness Tracker** is a full-stack fitness tracking web application built with Next.js. It empowers users to log workouts, track nutrition, monitor body metrics, and maintain streaks — all within a sleek, dark, high-performance UI.
+
+### The Challenge
+Most fitness apps are either too complex for casual users or too simplistic to serve serious athletes. The goal was to strike a perfect balance: a rich feature set presented through an intuitive, visually engaging interface that keeps users motivated.
+
+### The Solution
+By combining Next.js App Router with a component-driven architecture, each fitness domain (workouts, nutrition, body metrics, challenges) was isolated into its own page and data layer. Local persistence ensures a seamless, offline-capable experience, while the premium glassmorphism UI keeps users engaged and returning.
+
+## Key Features
+- 🏋️ **Workout Tracking**: Log exercises, sets, reps, and weights with muscle group tagging.
+- 🔥 **Streak System**: Real streak logic that motivates daily consistency.
+- 🥗 **Nutrition Logger**: Track macros (protein, carbs, fat) and calorie intake per day.
+- 📊 **Progress Charts**: Interactive charts visualizing body weight, strength gains, and volume over time.
+- 🏆 **Personal Records**: Automatic PR detection and celebration across all tracked lifts.
+- 💳 **Membership Plans**: Tiered membership structure with plan comparison UI.
+- 🎯 **Challenges**: Curated fitness challenges to keep workouts fresh and goal-driven.
+
+### Architecture Highlight
+```ts
+// Real streak calculation logic
+function calculateStreak(workoutLog: WorkoutEntry[]): number {
+  const today = new Date();
+  let streak = 0;
+  for (let i = 0; i < workoutLog.length; i++) {
+    const diff = differenceInDays(today, new Date(workoutLog[i].date));
+    if (diff === i) streak++;
+    else break;
+  }
+  return streak;
+}
+```

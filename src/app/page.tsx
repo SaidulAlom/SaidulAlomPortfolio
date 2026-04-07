@@ -3,16 +3,18 @@
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 import { useState, useEffect, useRef } from "react";
 
+import dynamic from "next/dynamic";
 import Loader from "../components/Loader";
 import Header from "../components/Header";
 import MenuOverlay from "../components/MenuOverlay";
 import Hero from "../components/sections/Hero";
-import About from "../components/sections/About";
-import Skills from "../components/sections/Skills";
-import Projects from "../components/sections/Projects";
-import Experience from "../components/sections/Experience";
-import Testimonials from "../components/sections/Testimonials";
-import Contact from "../components/sections/Contact";
+
+const About = dynamic(() => import("../components/sections/About"));
+const Skills = dynamic(() => import("../components/sections/Skills"));
+const Projects = dynamic(() => import("../components/sections/Projects"));
+const Experience = dynamic(() => import("../components/sections/Experience"));
+const Testimonials = dynamic(() => import("../components/sections/Testimonials"));
+const Contact = dynamic(() => import("../components/sections/Contact"));
 
 export default function App() {
   const currentYear = new Date().getFullYear();
@@ -84,34 +86,26 @@ export default function App() {
   };
 
   return (
-    <div ref={containerRef} className="bg-black text-white font-sans selection:bg-[#a3ff33] selection:text-black relative">
-      <AnimatePresence mode="wait">
-        {loading ? (
-          <Loader key="loader" progress={progress} />
-        ) : (
-          <motion.div
-            key="content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="relative"
-          >
-            <Header onOpenMenu={() => setIsMenuOpen(true)} />
-            <Hero styles={homeStyles} currentYear={currentYear} />
-            <About styles={aboutStyles} />
-            <Skills styles={skillsStyles} />
-            <Projects styles={projectsStyles} />
-            <Experience styles={experienceStyles} />
-            <Testimonials styles={testimonialsStyles} />
-            <Contact styles={contactStyles} />
-
-            {/* Spacer to allow scrolling through all sections */}
-            <div className="h-[500vh]" />
-
-            <MenuOverlay isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-          </motion.div>
-        )}
+    <div ref={containerRef} className={`bg-black text-white font-sans selection:bg-[#a3ff33] selection:text-black relative ${loading ? 'h-screen overflow-hidden' : ''}`}>
+      <AnimatePresence>
+        {loading && <Loader key="loader" progress={progress} />}
       </AnimatePresence>
+
+      <div className="relative">
+        <Header onOpenMenu={() => setIsMenuOpen(true)} />
+        <Hero styles={homeStyles} currentYear={currentYear} />
+        <About styles={aboutStyles} />
+        <Skills styles={skillsStyles} />
+        <Projects styles={projectsStyles} />
+        <Experience styles={experienceStyles} />
+        <Testimonials styles={testimonialsStyles} />
+        <Contact styles={contactStyles} />
+
+        {/* Spacer to allow scrolling through all sections */}
+        <div className="h-[500vh]" />
+
+        <MenuOverlay isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      </div>
 
       {/* Subtle Grain/Noise Overlay */}
       <div className="pointer-events-none fixed inset-0 z-[70] opacity-[0.04] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>

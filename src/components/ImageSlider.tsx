@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 interface ImageSliderProps {
   images: string[];
@@ -25,17 +26,22 @@ export default function ImageSlider({ images, title }: ImageSliderProps) {
   return (
     <div className="relative w-full h-[40vh] md:h-[60vh] rounded-2xl overflow-hidden border border-white/10 shadow-lg shadow-black/50 mb-16 group bg-neutral-900/50 backdrop-blur-sm">
       <AnimatePresence mode="wait">
-        <motion.img
+        <motion.div
           key={currentIndex}
-          src={images[currentIndex]}
-          alt={`${title} Screenshot ${currentIndex + 1}`}
-          loading="lazy"
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="absolute inset-0 w-full h-full object-contain p-4 md:p-8"
-        />
+          className="absolute inset-0 p-4 md:p-8"
+        >
+          <Image
+            src={images[currentIndex]}
+            alt={`${title} Screenshot ${currentIndex + 1}`}
+            fill
+            sizes="100vw"
+            className="object-contain"
+          />
+        </motion.div>
       </AnimatePresence>
 
       {/* Navigation Arrows */}
