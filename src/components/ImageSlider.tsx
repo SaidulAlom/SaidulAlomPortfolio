@@ -24,7 +24,7 @@ export default function ImageSlider({ images, title }: ImageSliderProps) {
   if (images.length === 0) return null;
 
   return (
-    <div className="relative w-full h-[40vh] md:h-[60vh] rounded-2xl overflow-hidden border border-white/10 shadow-lg shadow-black/50 mb-16 group bg-neutral-900/50 backdrop-blur-sm">
+    <div className="relative w-full h-[260px] sm:h-[340px] md:h-[460px] lg:h-[60vh] lg:max-h-[720px] rounded-2xl overflow-hidden border border-white/10 shadow-lg shadow-black/50 mb-16 group bg-neutral-900/50 backdrop-blur-sm">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
@@ -32,15 +32,17 @@ export default function ImageSlider({ images, title }: ImageSliderProps) {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="absolute inset-0 p-4 md:p-8"
+          className="absolute inset-0 p-3 sm:p-4 md:p-8"
         >
-          <Image
-            src={images[currentIndex]}
-            alt={`${title} Screenshot ${currentIndex + 1}`}
-            fill
-            sizes="100vw"
-            className="object-contain"
-          />
+          <div className="relative w-full h-full">
+            <Image
+              src={images[currentIndex]}
+              alt={`${title} Screenshot ${currentIndex + 1}`}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 72rem"
+              className="object-contain object-center"
+            />
+          </div>
         </motion.div>
       </AnimatePresence>
 

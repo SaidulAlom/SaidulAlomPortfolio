@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid slice">
+  <title id="title">Saffron and Spice project cover</title>
+  <desc id="desc">Warm saffron and deep spice gradients with project title for the Saffron and Spice restaurant web application.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="45%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#7c2d12" />
+    </linearGradient>
+    <radialGradient id="glowA" cx="30%" cy="20%" r="50%">
+      <stop offset="0%" stop-color="#fde68a" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#fde68a" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glowB" cx="80%" cy="75%" r="45%">
+      <stop offset="0%" stop-color="#fb7185" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#fb7185" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)" />
+  <rect width="1200" height="800" fill="url(#glowA)" />
+  <rect width="1200" height="800" fill="url(#glowB)" />
+  <g opacity="0.18" fill="#fff7ed">
+    <circle cx="180" cy="150" r="110" />
+    <circle cx="1040" cy="180" r="90" />
+    <circle cx="1010" cy="650" r="160" />
+    <circle cx="240" cy="660" r="140" />
+  </g>
+  <g opacity="0.16" stroke="#fff7ed" stroke-width="2" fill="none">
+    <path d="M115 545c86-95 187-127 305-95s197 19 271-35 152-74 233-62 139 40 161 66" />
+    <path d="M126 590c106-46 197-53 274-21s156 33 232 4 151-35 225-16 128 48 179 85" />
+  </g>
+  <g>
+    <rect x="120" y="238" width="960" height="310" rx="28" fill="#1c0f09" fill-opacity="0.2" stroke="#fff7ed" stroke-opacity="0.18" />
+    <text x="600" y="320" text-anchor="middle" fill="#fff7ed" font-family="Arial, sans-serif" font-size="26" letter-spacing="8">PREMIUM INDIAN DINING</text>
+    <text x="600" y="418" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="92" font-weight="700">Saffron</text>
+    <text x="600" y="512" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="92" font-weight="700">&amp; Spice</text>
+    <text x="600" y="575" text-anchor="middle" fill="#fff7ed" font-family="Arial, sans-serif" font-size="28" letter-spacing="5">FULL-STACK RESTAURANT WEB APP</text>
+  </g>
+</svg>

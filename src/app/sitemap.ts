@@ -4,6 +4,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://saidulalom.com'
   
   const slugs = [
+    "saffron-and-spice",
     "onesoul-e-corner", 
     "guwahati-flavors", 
     "bella-vista", 

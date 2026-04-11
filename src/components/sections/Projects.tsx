@@ -96,6 +96,19 @@ export default function Projects({ styles }: ProjectsProps) {
 
   const projectsData = [
     {
+      title: "Saffron & Spice",
+      slug: "saffron-and-spice",
+      category: "Full Stack",
+      tech: "React 19 / TypeScript / Express / Supabase",
+      description: "Built a premium Indian fine dining web app with animated storytelling, an interactive menu, cart and checkout flow, reservations, contact handling, and a hardened Express API.",
+      problem: "Most restaurant portfolio projects stop at visuals and do not prove real backend, booking, or ordering workflows in production.",
+      solution: "Combined a polished React frontend with an Express backend, Supabase persistence, CSRF protection, rate limiting, and graceful fallback data for stable demos.",
+      result: "A portfolio-grade full-stack restaurant experience deployed live with real reservations, orders, SEO setup, and production-minded security.",
+      live: "https://saffron-and-spice.onrender.com/",
+      github: "https://github.com/SaidulAlom/saffron-and-spice/",
+      image: "/projects/saffron-and-spice.svg"
+    },
+    {
       title: "Modern Fitness Tracker",
       slug: "modern-fitness-tracker",
       category: "Health & Fitness",
