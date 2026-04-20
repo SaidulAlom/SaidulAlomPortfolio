@@ -77,7 +77,7 @@ export default function Hero({ styles, currentYear }: HeroProps) {
               <button 
                 onClick={() => {
                   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                  window.scrollTo({ top: (2 / 6) * maxScroll, behavior: "smooth" });
+                  window.scrollTo({ top: (3 / 7) * maxScroll, behavior: "smooth" });
                 }}
                 className="btn-glow px-5 py-2.5 md:px-8 md:py-3 bg-[#a3ff33] text-black font-bold uppercase tracking-widest text-[10px] md:text-xs rounded-full hover:bg-white transition-all shadow-[0_0_20px_rgba(163,255,51,0.3)]"
               >
@@ -86,7 +86,7 @@ export default function Hero({ styles, currentYear }: HeroProps) {
               <button 
                 onClick={() => {
                   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                  window.scrollTo({ top: (4 / 6) * maxScroll, behavior: "smooth" });
+                  window.scrollTo({ top: (6 / 7) * maxScroll, behavior: "smooth" });
                 }}
                 className="btn-glow px-5 py-2.5 md:px-8 md:py-3 bg-transparent border border-[#a3ff33] text-[#a3ff33] font-bold uppercase tracking-widest text-[10px] md:text-xs rounded-full hover:bg-[#a3ff33] hover:text-black transition-all"
               >

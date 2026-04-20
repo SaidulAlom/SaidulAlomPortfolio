@@ -17,32 +17,27 @@ export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (maxScroll > 0) {
         const scrollRatio = window.scrollY / maxScroll;
-        const index = Math.round(scrollRatio * 6);
-        setActiveIndex(Math.min(Math.max(index, 0), 5));
+        const index = Math.round(scrollRatio * 7);
+        setActiveIndex(Math.min(Math.max(index, 0), 6));
       }
     }
   }, [isOpen]);
   const menuLinks = [
-    { name: "Home", index: 0 },
-    { name: "About", index: 1 },
-    { name: "Skills", index: 2 },
-    { name: "Projects", index: 3 },
-    { name: "Experience", index: 4 },
-    { name: "Contact", index: 5 },
+    { name: "Home",         index: 0 },
+    { name: "About",        index: 1 },
+    { name: "Skills",       index: 2 },
+    { name: "Projects",     index: 3 },
+    { name: "Experience",   index: 4 },
+    { name: "Testimonials", index: 5 },
+    { name: "Contact",      index: 6 },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, index: number) => {
     e.preventDefault();
     onClose();
-    
-    // Smooth scroll perfectly matched with Framer Motion timelines (index / 6)
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    const targetY = (index / 6) * maxScroll;
-    
-    window.scrollTo({
-      top: targetY,
-      behavior: "smooth"
-    });
+    const targetY = (index / 7) * maxScroll;
+    window.scrollTo({ top: targetY, behavior: "smooth" });
   };
 
   return (

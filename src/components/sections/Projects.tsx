@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { motion, MotionValue, AnimatePresence, useMotionValue, useSpring, useTransform } from "motion/react";
-import { ExternalLink, Github, BookOpen } from "lucide-react";
+import { ExternalLink, Github, BookOpen, Sparkles, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -28,8 +28,16 @@ interface Project {
   image: string;
 }
 
+type SummarizeStatus = "idle" | "loading" | "done" | "error";
+
 function ProjectCard({ p }: { p: Project }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [imgError, setImgError] = useState(false);
+  const [summarizeStatus, setSummarizeStatus] = useState<SummarizeStatus>("idle");
+  const [summary, setSummary] = useState("");
+  const [showOverlay, setShowOverlay] = useState(false);
+  const abortRef = useRef<AbortController | null>(null);
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [8, -8]), { stiffness: 300, damping: 30 });
@@ -41,6 +49,47 @@ function ProjectCard({ p }: { p: Project }) {
     y.set((e.clientY - rect.top) / rect.height - 0.5);
   };
   const handleMouseLeave = () => { x.set(0); y.set(0); };
+
+  const handleSummarize = useCallback(async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // If we already have a summary, just show the overlay again
+    if (summarizeStatus === "done") {
+      setShowOverlay(true);
+      return;
+    }
+
+    abortRef.current?.abort();
+    abortRef.current = new AbortController();
+
+    setSummarizeStatus("loading");
+    setShowOverlay(true);
+
+    try {
+      const res = await fetch("/api/summarize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: p.title,
+          description: p.description,
+          tech: p.tech,
+          problem: p.problem,
+          solution: p.solution,
+          result: p.result,
+        }),
+        signal: abortRef.current.signal,
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) throw new Error(data.error ?? "Failed");
+      setSummary(data.summary);
+      setSummarizeStatus("done");
+    } catch (err) {
+      if ((err as Error).name === "AbortError") return;
+      setSummarizeStatus("error");
+      setSummary((err as Error).message ?? "Something went wrong.");
+    }
+  }, [summarizeStatus, p]);
 
   return (
     <motion.div
@@ -55,14 +104,81 @@ function ProjectCard({ p }: { p: Project }) {
       onMouseLeave={handleMouseLeave}
       className="group relative flex flex-col bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-[#a3ff33]/40 transition-colors duration-300 will-change-transform"
     >
-      <Link href={`/project/${p.slug}`} className="block overflow-hidden relative h-48 w-full">
-        <Image
-          src={p.image}
-          alt={p.title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-        />
+      {/* AI Summary Overlay */}
+      <AnimatePresence>
+        {showOverlay && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22 }}
+            className="absolute inset-0 z-20 flex flex-col gap-3 p-5 bg-black/90 backdrop-blur-md rounded-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase text-[#a3ff33]">
+                <Sparkles size={12} /> AI Summary
+              </span>
+              <button
+                onClick={() => setShowOverlay(false)}
+                className="w-6 h-6 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white/60 hover:text-white"
+              >
+                <X size={12} />
+              </button>
+            </div>
+
+            {summarizeStatus === "loading" && (
+              <div className="flex-1 flex flex-col items-center justify-center gap-3">
+                <div className="flex gap-1">
+                  {[0, 1, 2].map((i) => (
+                    <motion.span
+                      key={i}
+                      className="w-2 h-2 rounded-full bg-[#a3ff33]"
+                      animate={{ y: [0, -8, 0] }}
+                      transition={{ duration: 0.7, delay: i * 0.15, repeat: Infinity }}
+                    />
+                  ))}
+                </div>
+                <p className="text-xs text-white/40">Generating summary…</p>
+              </div>
+            )}
+
+            {(summarizeStatus === "done" || summarizeStatus === "error") && (
+              <p className={`text-sm leading-relaxed flex-1 overflow-y-auto ${
+                summarizeStatus === "error" ? "text-red-400" : "text-gray-200"
+              }`}>
+                {summary}
+              </p>
+            )}
+
+            {summarizeStatus === "error" && (
+              <button
+                onClick={handleSummarize}
+                className="text-[10px] font-bold tracking-widest uppercase text-[#a3ff33] hover:underline self-start"
+              >
+                Retry
+              </button>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <Link href={`/project/${p.slug}`} className="block overflow-hidden relative h-48 w-full bg-neutral-900">
+        {imgError ? (
+          <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-neutral-900">
+            <span className="text-3xl font-black text-[#a3ff33]/20 tracking-tighter uppercase leading-none">{p.title.slice(0, 2)}</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-white/20">{p.category}</span>
+          </div>
+        ) : (
+          <Image
+            src={p.image}
+            alt={p.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            onError={() => setImgError(true)}
+          />
+        )}
       </Link>
       <div className="flex flex-col flex-1 p-5 gap-3">
         <span className="text-[10px] font-bold tracking-widest uppercase text-[#a3ff33]/70">{p.tech}</span>
@@ -77,6 +193,14 @@ function ProjectCard({ p }: { p: Project }) {
           <a href={p.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-[#a3ff33] transition-colors">
             <Github size={14} /> Code
           </a>
+          <button
+            onClick={handleSummarize}
+            title="AI-powered project summary"
+            className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-[#a3ff33] transition-colors"
+          >
+            <Sparkles size={14} />
+            {summarizeStatus === "loading" ? "…" : "AI"}
+          </button>
           <Link
             href={`/project/${p.slug}`}
             className="ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#a3ff33]/10 border border-[#a3ff33]/20 text-[#a3ff33] text-xs font-bold hover:bg-[#a3ff33] hover:text-black transition-all duration-200"
@@ -107,6 +231,19 @@ export default function Projects({ styles }: ProjectsProps) {
       live: "https://saffron-and-spice.onrender.com/",
       github: "https://github.com/SaidulAlom/saffron-and-spice/",
       image: "/projects/saffron-and-spice.svg"
+    },
+    {
+      title: "OneSoul e-Corner — Vision 2026",
+      slug: "onesoul-e-corner-2",
+      category: "Full Stack",
+      tech: "Next.js 15 / TypeScript / Firebase / Google Genkit / Radix UI",
+      description: "Built a next-generation full-stack digital platform with a real-time jobs portal, TipTap-powered news hub, AI integration via Google Genkit, wishlist/cart, Recharts analytics, and a Firebase Auth-protected admin dashboard.",
+      problem: "Most e-commerce platforms stop at product browsing and checkout — this needed to be a full platform ecosystem covering commerce, content, jobs, and media.",
+      solution: "Architected feature-isolated Next.js 15 App Router domains backed by Firestore for real-time data, with a TipTap admin CMS, Google Genkit AI layer, shadcn/ui components, and a cyberpunk-themed immersive UI.",
+      result: "A live, production-grade full-stack platform ecosystem with real-time data, AI-powered content, Recharts analytics, and a fully functional admin back-office.",
+      live: "https://onesoulecorner.netlify.app/",
+      github: "https://github.com/SaidulAlom/OneSoul-e-Corner-2.0",
+      image: "/projects/onesoul.png"
     },
     {
       title: "Modern Fitness Tracker",

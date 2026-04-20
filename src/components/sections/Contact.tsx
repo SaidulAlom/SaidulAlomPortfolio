@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, MotionValue } from "motion/react";
-import { Send, MessageCircle } from "lucide-react";
+import { Send, MessageCircle, Github, Linkedin, Twitter, Globe, Zap, Clock, MapPin } from "lucide-react";
 import { useForm, ValidationError } from "@formspree/react";
 
 interface ContactProps {
@@ -19,15 +19,15 @@ export default function Contact({ styles }: ContactProps) {
     <motion.section
       id="contact"
       style={{ y: styles.y, scale: styles.scale, opacity: styles.opacity }}
-      className="h-screen sticky top-0 flex flex-col p-4 sm:p-6 md:p-24 pt-20 md:pt-28 bg-black z-60 overflow-hidden"
+      className="h-screen sticky top-0 flex flex-col px-4 sm:px-8 md:px-16 py-20 md:pt-28 bg-black z-60 overflow-hidden"
     >
-      <div className="max-w-6xl w-full flex flex-col flex-1 min-h-0">
+      <div className="max-w-7xl w-full mx-auto flex flex-col flex-1 min-h-0">
         <div className="flex items-center gap-4 mb-4 md:mb-10 shrink-0">
           <h2 className="text-3xl md:text-7xl font-bold tracking-tighter uppercase">Contact</h2>
           <div className="h-[2px] flex-1 bg-[#a3ff33]/20 min-w-[30px]" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-24 flex-1 min-h-0 overflow-y-auto pb-20 pr-1 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 flex-1 min-h-0 overflow-y-auto pb-20 pr-1 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full">
 
           {/* Left Side — hidden on mobile */}
           <div className="hidden lg:flex flex-col justify-center">
@@ -94,14 +94,15 @@ export default function Contact({ styles }: ContactProps) {
             </a>
           </div>
 
-          {/* Right Side: Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="p-5 md:p-12 border border-white/10 rounded-3xl bg-neutral-900/50 backdrop-blur-xl relative overflow-hidden"
-          >
+          {/* Right Side: Contact Form + Info */}
+          <div className="flex flex-col gap-4">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="p-5 md:p-10 border border-white/10 rounded-3xl bg-neutral-900/50 backdrop-blur-xl relative overflow-hidden"
+            >
             <form onSubmit={handleSubmit} className="flex flex-col gap-5 md:gap-8 relative z-10">
               {/* Name Field */}
               <div className="flex flex-col gap-2">
@@ -184,6 +185,63 @@ export default function Contact({ styles }: ContactProps) {
               </motion.div>
             )}
           </motion.div>
+
+            {/* Bottom info row */}
+            <div className="grid grid-cols-3 gap-3">
+              {/* Response time */}
+              <div className="p-4 rounded-2xl border border-white/10 bg-white/[0.03] flex flex-col gap-1">
+                <Clock size={14} className="text-[#a3ff33] mb-1" />
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#a3ff33]">Response</p>
+                <p className="text-white font-bold text-base leading-tight">Within 24h</p>
+                <p className="text-gray-500 text-[10px]">Usually faster</p>
+              </div>
+              {/* Timezone */}
+              <div className="p-4 rounded-2xl border border-white/10 bg-white/[0.03] flex flex-col gap-1">
+                <MapPin size={14} className="text-[#a3ff33] mb-1" />
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#a3ff33]">Timezone</p>
+                <p className="text-white font-bold text-base leading-tight">IST +5:30</p>
+                <p className="text-gray-500 text-[10px]">India Standard</p>
+              </div>
+              {/* Open to work */}
+              <div className="p-4 rounded-2xl border border-[#a3ff33]/20 bg-[#a3ff33]/5 flex flex-col gap-1">
+                <Zap size={14} className="text-[#a3ff33] mb-1" />
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#a3ff33]">Status</p>
+                <p className="text-white font-bold text-base leading-tight">Open To Work</p>
+                <p className="text-gray-500 text-[10px]">Freelance / Remote</p>
+              </div>
+            </div>
+
+            {/* Social Links — icon grid */}
+            <div className="p-5 rounded-2xl border border-white/10 bg-white/[0.03]">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-4">Connect with me</p>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { label: "GitHub",   sub: "@SaidulAlom",      url: "https://github.com/SaidulAlom",                      Icon: Github,   color: "hover:border-white/40 hover:text-white" },
+                  { label: "LinkedIn", sub: "in/saidulalom",     url: "https://www.linkedin.com/in/saidulalom/",            Icon: Linkedin, color: "hover:border-[#0A66C2]/60 hover:text-[#0A66C2]" },
+                  { label: "X / Twitter", sub: "@S_Alom_83",    url: "https://x.com/S_Alom_83",                           Icon: Twitter,  color: "hover:border-white/40 hover:text-white" },
+                  { label: "CodePen",  sub: "@SaidulAlom",       url: "https://codepen.io/SaidulAlom",                     Icon: Globe,    color: "hover:border-[#a3ff33]/40 hover:text-[#a3ff33]" },
+                ].map(({ label, sub, url, Icon, color }) => (
+                  <motion.a
+                    key={label}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.03, y: -2 }}
+                    whileTap={{ scale: 0.97 }}
+                    className={`flex items-center gap-3 p-3 rounded-xl border border-white/10 bg-black/30 transition-all duration-200 group ${color}`}
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0 group-hover:bg-white/10 transition-colors">
+                      <Icon size={15} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-white truncate">{label}</p>
+                      <p className="text-[10px] text-gray-500 truncate">{sub}</p>
+                    </div>
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>

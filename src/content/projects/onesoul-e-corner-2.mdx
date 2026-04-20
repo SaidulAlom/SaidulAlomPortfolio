@@ -1,0 +1,31 @@
+## Overview
+
+**OneSoul e-Corner — Vision 2026** is a next-generation digital commerce platform built on Next.js 15 with Turbopack and powered by the full Firebase suite. It goes far beyond a typical storefront — combining real-time product commerce, a TipTap-powered news hub, a live jobs portal, vlog and e-book distribution, AI-powered content workflows via Google Genkit, and a protected admin dashboard into one unified, cyberpunk-aesthetic platform.
+
+### The Challenge
+Building a unified platform ecosystem — shop, content, jobs, services, and media — that feels premium on every screen, stays real-time, and remains manageable by a single admin without sacrificing performance or developer ergonomics.
+
+### The Solution
+Architected as a feature-rich Next.js 15 App Router application with clearly isolated feature domains, each backed by Firestore for real-time data. A TipTap-powered admin CMS handles content authoring, Google Genkit drives AI features, and Firebase Auth guards the entire back-office.
+
+## Key Features
+- 🛍️ **Shop + Wishlist + Cart**: Real-time Firestore-synced commerce engine.
+- 📰 **News Hub**: TipTap rich-text articles authored and published via the admin dashboard.
+- 💼 **Jobs Portal**: Live career listings synced from Firestore in real time.
+- 🤖 **AI Integration**: Google Genkit for generative content and dynamic loading.
+- ⌘K **Command Search**: Global keyboard-driven search across the platform.
+- 🔐 **Admin Dashboard**: Firebase Auth-protected CRUD back-office for every domain.
+- 🎥 **Vlogs & E-Books**: Dedicated multimedia and digital product distribution.
+
+### Architecture Overview
+```ts
+// Admin content flow
+async function publishArticle(content: string) {
+  const sanitized = sanitizeHtml(editor.getHTML());
+  await setDoc(doc(db, "news", articleId), {
+    content: sanitized,
+    publishedAt: serverTimestamp(),
+    author: currentUser.uid,
+  });
+}
+```

@@ -49,18 +49,17 @@ export default function Skills({ styles }: SkillsProps) {
     <motion.section
       id="skills"
       style={{ y: styles.y, scale: styles.scale, opacity: styles.opacity }}
-      className="h-screen sticky top-0 flex items-center justify-center px-4 py-8 md:p-24 bg-neutral-950 z-30"
+      className="min-h-screen sticky top-0 flex items-start md:items-center justify-center px-4 py-20 md:p-24 bg-neutral-950 z-30 overflow-y-auto"
     >
-      <div className="max-w-6xl w-full h-[88vh] flex flex-col">
+      <div className="max-w-6xl w-full flex flex-col">
         <div className="flex items-center gap-4 mb-4 md:mb-8 shrink-0">
           <h2 className="text-4xl md:text-8xl font-bold tracking-tighter uppercase">Skills</h2>
           <div className="h-[2px] flex-1 bg-[#a3ff33]/20" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-fr gap-4 md:gap-6 overflow-y-auto pb-6 flex-1 pr-1 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {skillGroups.map((item, idx) => {
             const Icon = item.icon;
-
             return (
               <motion.article
                 key={item.category}
@@ -68,46 +67,39 @@ export default function Skills({ styles }: SkillsProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.35 }}
                 transition={{ duration: 0.45, delay: idx * 0.08 }}
-                className="group relative flex h-full min-h-[340px] flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] p-6 md:p-7"
+                className="group relative flex flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] p-5 md:p-6"
               >
-                <div className={`pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b ${item.accent}`} />
-                <div className={`pointer-events-none absolute -right-12 top-10 h-28 w-28 rounded-full blur-3xl transition-opacity duration-500 ${item.glow} opacity-70 group-hover:opacity-100`} />
+                <div className={`pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b ${item.accent}`} />
+                <div className={`pointer-events-none absolute -right-10 top-8 h-24 w-24 rounded-full blur-3xl transition-opacity duration-500 ${item.glow} opacity-70 group-hover:opacity-100`} />
 
-                <div className="relative z-10 flex items-start justify-between gap-4">
-                  <div className="space-y-3">
+                <div className="relative z-10 flex items-start justify-between gap-3">
+                  <div className="space-y-2">
                     <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.26em] text-white/60">
                       <span>{`0${idx + 1}`}</span>
                       <span className="h-1 w-1 rounded-full bg-white/30" />
                       <span>{item.focus}</span>
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold tracking-tight text-white transition-colors duration-300 group-hover:text-[#a3ff33]">
-                        {item.category}
-                      </h3>
-                      <p className="mt-2 max-w-[28ch] text-sm leading-relaxed text-gray-400">
-                        {item.description}
-                      </p>
+                      <h3 className="text-xl font-bold tracking-tight text-white transition-colors duration-300 group-hover:text-[#a3ff33]">{item.category}</h3>
+                      <p className="mt-1 max-w-[28ch] text-xs leading-relaxed text-gray-400">{item.description}</p>
                     </div>
                   </div>
-
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-black/30 text-white/80 transition-all duration-300 group-hover:border-[#a3ff33]/40 group-hover:text-[#a3ff33]">
-                    <Icon size={22} />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-black/30 text-white/80 transition-all duration-300 group-hover:border-[#a3ff33]/40 group-hover:text-[#a3ff33]">
+                    <Icon size={18} />
                   </div>
                 </div>
 
-                <div className="relative z-10 mt-8 flex items-center justify-between border-t border-white/10 pt-4">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-white/45">
-                    Core Stack
-                  </p>
+                <div className="relative z-10 mt-4 flex items-center justify-between border-t border-white/10 pt-3">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-white/45">Core Stack</p>
                   <p className="text-xs font-medium text-white/45">{item.skills.length} tools</p>
                 </div>
 
-                <div className="relative z-10 mt-4 grid grid-cols-2 gap-2">
+                <div className="relative z-10 mt-3 grid grid-cols-2 gap-2">
                   {item.skills.map((skill) => (
                     <motion.span
                       key={skill}
                       whileHover={{ y: -2 }}
-                      className="flex min-h-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-2 text-center text-[11px] font-semibold text-white/85 transition-colors duration-300 hover:border-[#a3ff33]/35 hover:bg-[#a3ff33]/10 hover:text-[#e9ffc8]"
+                      className="flex min-h-9 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-1.5 text-center text-[11px] font-semibold text-white/85 transition-colors duration-300 hover:border-[#a3ff33]/35 hover:bg-[#a3ff33]/10 hover:text-[#e9ffc8]"
                     >
                       {skill}
                     </motion.span>

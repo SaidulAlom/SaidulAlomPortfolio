@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+
+const AUTOPLAY_INTERVAL = 4000; // ms between slides
 
 interface ImageSliderProps {
   images: string[];
@@ -12,6 +14,18 @@ interface ImageSliderProps {
 
 export default function ImageSlider({ images, title }: ImageSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    if (images.length <= 1 || isHovered) return;
+    timerRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    }, AUTOPLAY_INTERVAL);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isHovered, images.length]);
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -24,7 +38,11 @@ export default function ImageSlider({ images, title }: ImageSliderProps) {
   if (images.length === 0) return null;
 
   return (
-    <div className="relative w-full h-[260px] sm:h-[340px] md:h-[460px] lg:h-[60vh] lg:max-h-[720px] rounded-2xl overflow-hidden border border-white/10 shadow-lg shadow-black/50 mb-16 group bg-neutral-900/50 backdrop-blur-sm">
+    <div
+      className="relative w-full h-[260px] sm:h-[340px] md:h-[460px] lg:h-[60vh] lg:max-h-[720px] rounded-2xl overflow-hidden border border-white/10 shadow-lg shadow-black/50 mb-16 group bg-neutral-900/50 backdrop-blur-sm"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}

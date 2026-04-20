@@ -1,8 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk } from "next/font/google";
+import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import ScrollUpButton from "../components/ScrollUpButton";
 import CursorGlow from "../components/CursorGlow";
+import { GA_ID } from "../lib/analytics";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -70,6 +74,22 @@ export const metadata: Metadata = {
   },
 };
 
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Saidul Alom',
+  url: 'https://saidulalom.com',
+  image: 'https://saidulalom.com/SaidulAlomLogo.png',
+  jobTitle: 'Full Stack Developer',
+  description: 'Full Stack Developer specializing in React, Next.js, Node.js, and modern web architectures.',
+  sameAs: [
+    'https://github.com/SaidulAlom',
+    'https://twitter.com/S_Alom_83',
+    'https://www.linkedin.com/in/saidul-alom',
+  ],
+  knowsAbout: ['React', 'Next.js', 'Node.js', 'TypeScript', 'Tailwind CSS', 'MongoDB', 'PostgreSQL'],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -77,12 +97,31 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
+            </Script>
+          </>
+        )}
+      </head>
       <body
         className={`${spaceGrotesk.variable} antialiased selection:bg-[#a3ff33] selection:text-black`}
       >
         <CursorGlow />
         {children}
         <ScrollUpButton />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

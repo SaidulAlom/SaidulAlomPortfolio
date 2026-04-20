@@ -26,15 +26,15 @@ export default function About({ styles }: AboutProps) {
           variants={{
             visible: { transition: { staggerChildren: 0.1 } }
           }}
-          className="space-y-12"
+          className="space-y-6 md:space-y-12"
         >
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             <motion.p
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="text-2xl md:text-5xl font-bold leading-tight tracking-tight text-white"
+              className="text-xl md:text-5xl font-bold leading-tight tracking-tight text-white"
             >
               I architect and build fast, scalable, and <span className="text-[#a3ff33]">user-focused web applications</span> from the ground up. Utilizing React and Next.js, I engineer full-stack solutions designed for real-world traffic.
             </motion.p>
@@ -43,7 +43,7 @@ export default function About({ styles }: AboutProps) {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="text-lg md:text-2xl text-gray-300 leading-relaxed font-medium"
+              className="text-sm md:text-2xl text-gray-300 leading-relaxed font-medium"
             >
               My focus is squarely on absolute performance, pixel-perfect frontend execution, and solving complex business problems. Whether it's designing secure RESTful APIs in Node.js or crafting immersive WebGL interfaces, I deliver digital products that scale rapidly, convert users natively, and drive tangible outcome.
             </motion.p>

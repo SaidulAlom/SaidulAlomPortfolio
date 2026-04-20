@@ -1,12 +1,15 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 import ImageSlider from '../../../components/ImageSlider';
 import PageTransition from '../../../components/PageTransition';
+import ProjectLinks from '../../../components/ProjectLinks';
 
 const projectImages: Record<string, string[]> = {
   "modern-fitness-tracker": ["/projects/fitness-tracker.png"],
   "saffron-and-spice": ["/projects/saffron-and-spice.svg"],
+  "onesoul-e-corner-2": ["/projects/onesoul.png"],
   "onesoul-e-corner": ["/projects/OneSoul 1.png", "/projects/OneSoul 2.png", "/projects/OneSoul 3.png"],
   "guwahati-flavors": ["/projects/Guwahati Flavors 1.png", "/projects/Guwahati Flavors 2.png", "/projects/Guwahati Flavors 3.png"],
   "bella-vista": ["/projects/Bella Vista 1.png", "/projects/Bella Vista 2.png", "/projects/Bella Vista 3.png"],
@@ -20,24 +23,28 @@ const projectImages: Record<string, string[]> = {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const title = slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-  const images = projectImages[slug] || ['/SaidulAlomLogo.png'];
+  const project = projectData[slug];
+  const title = project?.title ?? slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  const description = project?.description ?? `Detailed case study and technical breakdown for the ${title} project built by Saidul Alom.`;
+  const ogImage = projectImages[slug]?.[0] ?? '/SaidulAlomLogo.png';
 
   return {
     title: `${title} Case Study`,
-    description: `Detailed case study and technical breakdown for the ${title} project built by Saidul Alom.`,
+    description,
+    alternates: { canonical: `/project/${slug}` },
     openGraph: {
       title: `${title} Case Study | Saidul Alom`,
-      description: `Detailed case study and technical breakdown for the ${title} project.`,
-      images: [{ url: images[0] }],
+      description,
+      url: `/project/${slug}`,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: `${title} preview` }],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${title} Case Study | Saidul Alom`,
-      description: `Detailed case study and technical breakdown for the ${title} project.`,
-      images: [images[0]],
-    }
-  }
+      description,
+      images: [ogImage],
+    },
+  };
 }
 
 const projectData: Record<string, {
@@ -168,6 +175,56 @@ const projectData: Record<string, {
     live: "https://onesoul-e-corner.vercel.app/",
     github: "https://github.com/SaidulAlom/OneSoul-e-Corner"
   },
+  "onesoul-e-corner-2": {
+    title: "OneSoul e-Corner — Vision 2026",
+    tech: ["Next.js 15", "TypeScript", "Firebase Auth", "Firestore", "Firebase Admin", "Google Genkit", "Tailwind CSS", "Radix UI", "shadcn/ui", "Recharts", "React Hook Form", "Zod", "Framer Motion", "TipTap", "Netlify"],
+    description: "OneSoul e-Corner (Vision 2026) is a next-generation full-stack digital commerce platform built on Next.js 15 and powered by the full Firebase suite — Firestore, Auth, and Firebase Admin. It combines real-time product commerce, a TipTap-powered news hub, a live jobs portal, Recharts analytics dashboards, AI-powered content workflows via Google Genkit, vlog/e-book distribution, and a Firebase Auth-protected admin dashboard — all within a futuristic cyberpunk aesthetic.",
+    problem: "Most e-commerce platforms stop at product browsing and checkout. This project needed to be an entire platform ecosystem — covering commerce, content authoring, real-time jobs, AI-generated content, and multimedia distribution — all managed by a single admin CMS without sacrificing performance or visual premium.",
+    solution: "Architected as a Next.js 15 App Router application with feature-isolated domains (shop, news, jobs, vlogs, e-books, services, admin), each backed by Firestore for real-time data. shadcn/ui components built on Radix UI primitives power the UI system. React Hook Form with Zod handles all form validation. Google Genkit drives AI features, Firebase Auth gates the admin back-office, and Recharts renders analytics dashboards.",
+    result: "A live, production-grade full-stack platform ecosystem at onesoulecorner.netlify.app — with real-time Firestore data, AI-powered content workflows, Recharts analytics, a fully functional admin back-office, and a futuristic cyberpunk identity built with Framer Motion animations.",
+    live: "https://onesoulecorner.netlify.app/",
+    github: "https://github.com/SaidulAlom/OneSoul-e-Corner-2.0",
+    goals: [
+      { goal: "Platform ecosystem", metric: "Shop, news, jobs, vlogs, e-books, and services under one roof" },
+      { goal: "Real-time data", metric: "Firestore listeners update jobs, cart, and notifications instantly" },
+      { goal: "Admin CMS", metric: "Non-developer can publish articles, jobs, and products via dashboard" },
+      { goal: "AI integration", metric: "Genkit drives dynamic content generation and loading" },
+      { goal: "Type-safe forms", metric: "Every user-facing form validated end-to-end with React Hook Form + Zod" },
+    ],
+    features: [
+      { name: "🛍️ Shop + Wishlist + Cart", detail: "Full commerce engine with real-time Firestore-backed wishlist and cart, product discovery, and a clean checkout flow built with React Hook Form and Zod validation." },
+      { name: "📰 News Hub", detail: "Dynamic content center where admins author rich articles via TipTap. HTML is stored in Firestore and rendered in the public news feed with a news ticker component." },
+      { name: "💼 Jobs Portal", detail: "Live career listings synced from Firestore in real time. Admins post and manage openings from the dashboard; users apply via a Zod-validated application form." },
+      { name: "🤖 AI Integration (Genkit)", detail: "Google Genkit with @genkit-ai/googleai and Vertex AI is integrated for generative content features, keeping the AI layer abstracted via server-side flows." },
+      { name: "📊 Recharts Analytics", detail: "Admin dashboard includes data visualizations powered by Recharts showing platform activity, content metrics, and commerce performance." },
+      { name: "🎥 Vlogs & E-Books", detail: "Dedicated distribution sections for video content and digital products, managed entirely through the admin dashboard with full CRUD support." },
+      { name: "🔐 Admin Dashboard", detail: "Firebase Auth-protected back-office covering every platform domain with TipTap for rich-text authoring, @tanstack/react-table for data tables, and shadcn/ui for the UI system." },
+      { name: "💾 cmdk Command Palette", detail: "Global keyboard-driven command palette (cmdk) for instant navigation across the platform from any page." },
+    ],
+    architecture: "The platform uses Next.js 15 App Router with feature-isolated route segments. Each domain (shop, news, jobs, vlogs, services, admin) has co-located components and Firestore data access via the Firebase SDK. Firebase Admin is used server-side for privileged operations. The UI system is built on shadcn/ui components backed by Radix UI primitives. React Hook Form + Zod handles all form state and validation. Google Genkit flows are invoked server-side.",
+    dataFlow: "User → Next.js App Router → Firebase SDK → Firestore / Auth\nAdmin → TipTap Editor → Firestore (content)\nServer actions → Firebase Admin SDK → Privileged Firestore writes\nAI Feature → Genkit Flow → @genkit-ai/googleai → Vertex AI",
+    security: [
+      { concern: "Authentication", implementation: "Firebase Auth with persistent sessions; admin routes protected by Auth middleware" },
+      { concern: "Server-side privilege", implementation: "firebase-admin SDK used for privileged operations, never exposed to the client" },
+      { concern: "Form validation", implementation: "Zod schemas validate all inputs both client-side (React Hook Form) and server-side" },
+      { concern: "Environment secrets", implementation: "Firebase config and Admin credentials scoped via environment variables" },
+      { concern: "AI safety", implementation: "Genkit flows run server-side only; no API keys shipped to the browser" },
+    ],
+    performance: [
+      "Next.js 15 App Router with React Server Components reduces client-side JS for data-heavy pages",
+      "Firestore real-time listeners eliminate polling for jobs, cart, and notification updates",
+      "shadcn/ui (Radix UI) primitives are accessible and animation-optimised with zero layout shift",
+      "Framer Motion animations use GPU-accelerated transforms to avoid layout reflow",
+      "Netlify CDN edge caches all static assets globally for sub-100ms TTFB",
+    ],
+    limitations: [
+      { area: "Payments", current: "UI implemented, no live payment gateway", improvement: "Integrate Razorpay or Stripe with webhook-based order confirmation" },
+      { area: "AI features", current: "Genkit integration present; some flows still in progress", improvement: "Expand to AI-driven product recommendations and content summarization" },
+      { area: "Search", current: "cmdk command palette with basic Firestore queries", improvement: "Full-text search via Algolia or Typesense for cross-domain results" },
+      { area: "Analytics", current: "Recharts in admin; no end-user analytics", improvement: "Firebase Analytics + custom event tracking" },
+      { area: "PWA", current: "Not yet installable", improvement: "Add service worker, app manifest, and offline content caching" },
+    ],
+  },
   "buildmart10": {
     title: "Buildmart10",
     tech: ["React.js", "Tailwind CSS", "JavaScript", "Netlify"],
@@ -263,7 +320,7 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
       <header className="fixed top-0 left-0 right-0 p-6 md:p-12 flex justify-between items-center z-50 pointer-events-none gap-4">
         <div className="pointer-events-auto shrink-0">
           <Link href="/">
-            <img src="/SaidulAlomLogo.png" alt="Saidul Alom Logo" className="h-6 sm:h-8 md:h-10 w-auto object-contain hover:scale-105 transition-transform duration-300" />
+            <Image src="/SaidulAlomLogo.png" alt="Saidul Alom Logo" width={40} height={40} className="h-6 sm:h-8 md:h-10 w-auto object-contain hover:scale-105 transition-transform duration-300" priority />
           </Link>
         </div>
         <Link href="/#projects" className="bg-white text-black px-6 py-2 rounded-full flex items-center gap-3 hover:scale-105 transition-transform duration-300 font-bold text-sm pointer-events-auto shadow-2xl">
@@ -425,19 +482,7 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
 
             <section className="p-8 border border-white/10 rounded-3xl bg-neutral-900/40 backdrop-blur-3xl hover:border-[#a3ff33]/30 transition-colors">
               <h3 className="text-xs font-bold uppercase tracking-widest text-[#a3ff33] mb-6">Project Links</h3>
-              <div className="flex flex-col gap-6">
-                {project?.live && (
-                  <a href={project.live} target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#a3ff33] transition-colors text-lg font-bold flex items-center justify-between group">
-                    Live Preview <span className="group-hover:translate-x-2 transition-transform opacity-50 group-hover:opacity-100">→</span>
-                  </a>
-                )}
-                {project?.live && project?.github && <div className="h-[1px] w-full bg-white/10" />}
-                {project?.github && (
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#a3ff33] transition-colors text-lg font-bold flex items-center justify-between group">
-                    Source Code <span className="group-hover:translate-x-2 transition-transform opacity-50 group-hover:opacity-100">→</span>
-                  </a>
-                )}
-              </div>
+              <ProjectLinks projectTitle={project?.title ?? title} live={project?.live} github={project?.github} />
             </section>
           </div>
         </div>
