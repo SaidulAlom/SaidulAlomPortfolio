@@ -36,7 +36,6 @@ function ProjectCard({ p }: { p: Project }) {
   const [summarizeStatus, setSummarizeStatus] = useState<SummarizeStatus>("idle");
   const [summary, setSummary] = useState("");
   const [showOverlay, setShowOverlay] = useState(false);
-  const abortRef = useRef<AbortController | null>(null);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -60,35 +59,13 @@ function ProjectCard({ p }: { p: Project }) {
       return;
     }
 
-    abortRef.current?.abort();
-    abortRef.current = new AbortController();
-
     setSummarizeStatus("loading");
     setShowOverlay(true);
 
-    try {
-      const res = await fetch("/api/summarize", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: p.title,
-          description: p.description,
-          tech: p.tech,
-          problem: p.problem,
-          solution: p.solution,
-          result: p.result,
-        }),
-        signal: abortRef.current.signal,
-      });
-      const data = await res.json();
-      if (!res.ok || data.error) throw new Error(data.error ?? "Failed");
-      setSummary(data.summary);
+    window.setTimeout(() => {
+      setSummary(`${p.title} uses ${p.tech} to solve a clear product problem: ${p.problem} The result is ${p.result}`);
       setSummarizeStatus("done");
-    } catch (err) {
-      if ((err as Error).name === "AbortError") return;
-      setSummarizeStatus("error");
-      setSummary((err as Error).message ?? "Something went wrong.");
-    }
+    }, 250);
   }, [summarizeStatus, p]);
 
   return (

@@ -21,6 +21,8 @@ const projectImages: Record<string, string[]> = {
   "fintrack": ["/projects/FinTrack 1.png", "/projects/FinTrack 2.png", "/projects/FinTrack 3.png", "/projects/FinTrack 4.png", "/projects/FinTrack 5.png"]
 };
 
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const project = projectData[slug];
@@ -306,6 +308,10 @@ const projectData: Record<string, {
     github: "https://github.com/SaidulAlom/Futuristic-Start-up-Landing-Page"
   }
 };
+
+export function generateStaticParams() {
+  return Object.keys(projectData).map((slug) => ({ slug }));
+}
 
 export default async function ProjectCaseStudy({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

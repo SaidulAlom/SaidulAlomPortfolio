@@ -4,6 +4,18 @@ import path from 'path';
 import Link from 'next/link';
 import PageTransition from '../../../components/PageTransition';
 
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  const blogDir = path.join(process.cwd(), 'src/content/blog');
+  if (!fs.existsSync(blogDir)) return [];
+
+  return fs
+    .readdirSync(blogDir)
+    .filter((file) => file.endsWith('.mdx'))
+    .map((file) => ({ slug: file.replace(/\.mdx$/, '') }));
+}
+
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const filePath = path.join(process.cwd(), 'src/content/blog', `${slug}.mdx`);
