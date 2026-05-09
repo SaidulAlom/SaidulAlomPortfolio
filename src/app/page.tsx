@@ -12,6 +12,7 @@ import Hero from "../components/sections/Hero";
 const About = dynamic(() => import("../components/sections/About"));
 const Skills = dynamic(() => import("../components/sections/Skills"));
 const Projects = dynamic(() => import("../components/sections/Projects"));
+const Services = dynamic(() => import("../components/sections/Services"));
 const Experience = dynamic(() => import("../components/sections/Experience"));
 const Testimonials = dynamic(() => import("../components/sections/Testimonials"));
 const Contact = dynamic(() => import("../components/sections/Contact"));
@@ -44,45 +45,51 @@ export default function App() {
 
   // Animation values for stacking effect
   const homeStyles = {
-    scale: useTransform(scrollYProgress, [1 / 7, 1 / 7 + 0.1], [1, 0.9]),
-    opacity: useTransform(scrollYProgress, [1 / 7, 1 / 7 + 0.1], [1, 0]),
+    scale: useTransform(scrollYProgress, [1 / 8, 1 / 8 + 0.1], [1, 0.9]),
+    opacity: useTransform(scrollYProgress, [1 / 8, 1 / 8 + 0.1], [1, 0]),
     y: useTransform(scrollYProgress, [0, 1], ["0vh", "0vh"])
   };
 
   const aboutStyles = {
-    scale: useTransform(scrollYProgress, [2 / 7, 2 / 7 + 0.1], [1, 0.9]),
-    opacity: useTransform(scrollYProgress, [2 / 7, 2 / 7 + 0.1], [1, 0]),
-    y: useTransform(scrollYProgress, [1 / 7 - 0.1, 1 / 7], ["100vh", "0vh"])
+    scale: useTransform(scrollYProgress, [2 / 8, 2 / 8 + 0.1], [1, 0.9]),
+    opacity: useTransform(scrollYProgress, [2 / 8, 2 / 8 + 0.1], [1, 0]),
+    y: useTransform(scrollYProgress, [1 / 8 - 0.1, 1 / 8], ["100vh", "0vh"])
   };
 
   const skillsStyles = {
-    scale: useTransform(scrollYProgress, [3 / 7, 3 / 7 + 0.1], [1, 0.9]),
-    opacity: useTransform(scrollYProgress, [3 / 7, 3 / 7 + 0.1], [1, 0]),
-    y: useTransform(scrollYProgress, [2 / 7 - 0.1, 2 / 7], ["100vh", "0vh"])
+    scale: useTransform(scrollYProgress, [3 / 8, 3 / 8 + 0.1], [1, 0.9]),
+    opacity: useTransform(scrollYProgress, [3 / 8, 3 / 8 + 0.1], [1, 0]),
+    y: useTransform(scrollYProgress, [2 / 8 - 0.1, 2 / 8], ["100vh", "0vh"])
   };
 
   const projectsStyles = {
-    scale: useTransform(scrollYProgress, [4 / 7, 4 / 7 + 0.1], [1, 0.9]),
-    opacity: useTransform(scrollYProgress, [4 / 7, 4 / 7 + 0.1], [1, 0]),
-    y: useTransform(scrollYProgress, [3 / 7 - 0.1, 3 / 7], ["100vh", "0vh"])
+    scale: useTransform(scrollYProgress, [4 / 8, 4 / 8 + 0.1], [1, 0.9]),
+    opacity: useTransform(scrollYProgress, [4 / 8, 4 / 8 + 0.1], [1, 0]),
+    y: useTransform(scrollYProgress, [3 / 8 - 0.1, 3 / 8], ["100vh", "0vh"])
+  };
+
+  const servicesStyles = {
+    scale: useTransform(scrollYProgress, [5 / 8, 5 / 8 + 0.1], [1, 0.9]),
+    opacity: useTransform(scrollYProgress, [5 / 8, 5 / 8 + 0.1], [1, 0]),
+    y: useTransform(scrollYProgress, [4 / 8 - 0.1, 4 / 8], ["100vh", "0vh"])
   };
 
   const experienceStyles = {
-    scale: useTransform(scrollYProgress, [5 / 7, 5 / 7 + 0.1], [1, 0.9]),
-    opacity: useTransform(scrollYProgress, [5 / 7, 5 / 7 + 0.1], [1, 0]),
-    y: useTransform(scrollYProgress, [4 / 7 - 0.1, 4 / 7], ["100vh", "0vh"])
+    scale: useTransform(scrollYProgress, [6 / 8, 6 / 8 + 0.1], [1, 0.9]),
+    opacity: useTransform(scrollYProgress, [6 / 8, 6 / 8 + 0.1], [1, 0]),
+    y: useTransform(scrollYProgress, [5 / 8 - 0.1, 5 / 8], ["100vh", "0vh"])
   };
 
   const testimonialsStyles = {
-    scale: useTransform(scrollYProgress, [6 / 7, 6 / 7 + 0.1], [1, 0.9]),
-    opacity: useTransform(scrollYProgress, [6 / 7, 6 / 7 + 0.1], [1, 0]),
-    y: useTransform(scrollYProgress, [5 / 7 - 0.1, 5 / 7], ["100vh", "0vh"])
+    scale: useTransform(scrollYProgress, [7 / 8, 7 / 8 + 0.1], [1, 0.9]),
+    opacity: useTransform(scrollYProgress, [7 / 8, 7 / 8 + 0.1], [1, 0]),
+    y: useTransform(scrollYProgress, [6 / 8 - 0.1, 6 / 8], ["100vh", "0vh"])
   };
 
   const contactStyles = {
     scale: useTransform(scrollYProgress, [0.99, 1], [1, 1]),
     opacity: useTransform(scrollYProgress, [0.99, 1], [1, 1]),
-    y: useTransform(scrollYProgress, [6 / 7 - 0.1, 6 / 7], ["100vh", "0vh"])
+    y: useTransform(scrollYProgress, [7 / 8 - 0.1, 7 / 8], ["100vh", "0vh"])
   };
 
   return (
@@ -97,6 +104,7 @@ export default function App() {
         <About styles={aboutStyles} />
         <Skills styles={skillsStyles} />
         <Projects styles={projectsStyles} />
+        <Services styles={servicesStyles} />
         <Experience styles={experienceStyles} />
         <Testimonials styles={testimonialsStyles} />
         <Contact styles={contactStyles} />
